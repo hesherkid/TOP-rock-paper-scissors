@@ -52,18 +52,14 @@ function checkForWinner() {
 
     scoreDiv.appendChild(h2);
 
-    // Reset scores
     humanScore = 0;
     computerScore = 0;
 
-    // Update the displayed scores
     humanScoreSpan.textContent = humanScore;
     computerScoreSpan.textContent = computerScore;
 
-    // Optionally clear the outcome display
     outcomeDiv.textContent = '';
 
-    // Optionally remove the h2 after a few seconds
     setTimeout(() => h2.remove(), 5000);
 }
 
