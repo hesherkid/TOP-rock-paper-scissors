@@ -5,82 +5,69 @@ const scoreDiv = document.querySelector("#score");
 
 function getComputerChoice() {
     let choices = ["rock", "paper", "scissors"];
-    let computerChoice = choices[Math.floor(Math.random() * choices.length)];
-    return computerChoice;
+    return computerChoice = choices[Math.floor(Math.random() * choices.length)];
 }
 
 let humanScore = 0;
 let computerScore = 0;  
 
+const outcomeDiv = document.querySelector("#outcome");
+const humanScoreSpan = document.querySelector("#humanScore");
+const computerScoreSpan = document.querySelector("#computerScore");
+
 function playRound(humanChoice, computerChoice) {
-    const outcomeDiv = document.querySelector("#outcome");
+    outcomeDiv.textContent = '';
+
+    const para = document.createElement("p");
+
     if (computerChoice === humanChoice) {
-        const para = document.createElement("p");
         para.textContent = "It's a tie!";
-        outcomeDiv.appendChild(para);
-    } else if (computerChoice === "rock" && humanChoice === "scissors") {
+    } else if (computerChoice === "rock" && humanChoice === "scissors" ||
+               computerChoice === "paper" && humanChoice === "rock" ||
+               computerChoice === "scissors" && humanChoice === "paper") {
         computerScore++;
-        const para = document.createElement("p");
         para.textContent = `You Lose! ${computerChoice} beats ${humanChoice}`;
-        outcomeDiv.appendChild(para);
-    } else if (computerChoice === "paper" && humanChoice === "rock") {
-        computerScore++;
-        const para = document.createElement("p");
-        para.textContent = `You Lose! ${computerChoice} beats ${humanChoice}`;
-        outcomeDiv.appendChild(para);
-    } else if (computerChoice === "scissors" && humanChoice === "paper") {
-        computerScore++;
-        const para = document.createElement("p");
-        para.textContent = `You Lose! ${computerChoice} beats ${humanChoice}`;
-        outcomeDiv.appendChild(para);
     } else {
         humanScore++;
-        const para = document.createElement("p");
         para.textContent = `You Win! ${humanChoice} beats ${computerChoice}`;
-        outcomeDiv.appendChild(para);
+    }
+
+    outcomeDiv.appendChild(para);
+
+    humanScoreSpan.textContent = humanScore;
+    computerScoreSpan.textContent = computerScore;
+
+    if (humanScore === 5 || computerScore === 5) {
+        checkForWinner();
     }
 }
 
-function checkForWinner (humanScore, computerScore) {
-    if (humanScore === 5) {
-        const h2 = document.createElement("h2");
-        h2.textContent = `You win! Congrats! Human Score: ${humanScore}`;
-        scoreDiv.appendChild(h2);
-        } else if (computerScore === 5) {
-            const h2 = document.createElement("h2");
-            h2.textContent = `You lose! Computer Score: ${computerScore}`;
-            scoreDiv.appendChild(h2);
-        }
+function checkForWinner() {
+    const h2 = document.createElement("h2");
+    if (humanScore === 5) {        
+        h2.textContent = `You win! Congrats!`;
+    } else if (computerScore === 5) {
+        h2.textContent = `You lose! Better luck next time!`;
     }
-        
-// function playGame() {        
-    // for (let i = 0; i < 5; i++) {
-    //     const humanSelection = getHumanChoice();
-    //     const computerSelection = getComputerChoice();
-    //     console.log(playRound(humanSelection, computerSelection));
-    // }   
 
-    
-// }
+    scoreDiv.appendChild(h2);
 
-rockButton.addEventListener("click", () => {
-    const computerSelection = getComputerChoice();
-    const humanSelection = "rock";
-    playRound(humanSelection, computerSelection);
-    checkForWinner(humanScore, computerScore);
-})
+    // Reset scores
+    humanScore = 0;
+    computerScore = 0;
 
-paperButton.addEventListener("click", () => {
-    const computerSelection = getComputerChoice();
-    const humanSelection = "paper";
-    playRound(humanSelection, computerSelection);
-    checkForWinner(humanScore, computerScore);
-})
+    // Update the displayed scores
+    humanScoreSpan.textContent = humanScore;
+    computerScoreSpan.textContent = computerScore;
 
-scissorsButton.addEventListener("click", () => {
-    const computerSelection = getComputerChoice();
-    const humanSelection = "scissors";
-    playRound(humanSelection, computerSelection);
-    checkForWinner(humanScore, computerScore);
-})
+    // Optionally clear the outcome display
+    outcomeDiv.textContent = '';
 
+    // Optionally remove the h2 after a few seconds
+    setTimeout(() => h2.remove(), 5000);
+}
+
+
+rockButton.addEventListener("click", () => playRound("rock", getComputerChoice()));
+paperButton.addEventListener("click", () => playRound("paper", getComputerChoice()));
+scissorsButton.addEventListener("click", () => playRound("scissors", getComputerChoice()));
