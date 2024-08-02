@@ -7,3 +7,6 @@ This is the third project in The Odin Project and we will be creating the game r
 - Linux
 - Github/Git
 - README creation
+
+
+We have since revisited this project and updated it to be played with a user interface using DOM Manipulation and adding onto the HTML.
