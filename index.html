@@ -12,8 +12,16 @@
 </head>
 
 <body>
+    <script src="script.js" defer></script>
     <div class="container">
-        <script src="script.js" defer></script>
+        <div>
+            <p>Games Played: <span id="games">0</span></p>
+            <p>Human Games Won: <span id="humanWins">0</span></p>
+            <p>Computer Games Won: <span id="computerWins">0</span></p>
+        </div>
+        <div>
+            <button id="reset" type="button">Reset</button>
+        </div>
         <div id="score">
             <p>Human Score: <span id="humanScore">0</span></p>
             <p>Computer Score: <span id="computerScore">0</span></p>
@@ -22,7 +30,7 @@
         <button id="Paper" type="button">Paper</button>
         <button id="Scissors" type="button">Scissors</button>
     </div>
-    <div id="outcome"></div>
+    <div id="outcome"></div>   
     
 </body>
 
